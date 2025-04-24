@@ -4,5 +4,6 @@
 
 #ifndef BOARDVIEW_H
 #define BOARDVIEW_H
+void printLD();
 void printBoard();
 #endif //BOARDVIEW_H

@@ -4,6 +4,8 @@
 #include "../Model/card.h"
 #include "../Model/columns.h"
 #include "../Model/deck.h"
+#include "../View/BoardView.h"
+
 int LD(char* filename);
 Deck currentdeck;
 char* keyboardInput();
@@ -75,6 +77,8 @@ int LD(char* filename) {
         }
     fclose(file);
     currentdeck = tempdeck;
+    //TODO call view
+    //printLD();
     return cards;
 
 }
