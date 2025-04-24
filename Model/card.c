@@ -3,7 +3,7 @@
 #include <stdlib.h>
 #include <time.h>
 
-const char suits[] = {'h', 'r', 's', 'k'};
+const char suits[] = {'h', 'c', 'd', 's'};
 const char ranks[] = {'A', '2', '3', '4', '5', '6', '7', '8', '9', 'T', 'J', 'D', 'K'};
 
 Card* createCard(char rank, char suit) {

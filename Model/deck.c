@@ -7,6 +7,15 @@
 #include "../Model/deck.h"
 
 void addCard(Card* card, Deck* deck) {
+
+  Card* current = deck->top;
+  while (current != NULL) {
+    if (current == card) {
+      return;
+    }
+    current = current->next;
+  }
+
   card->next = NULL;
   card->previous = NULL;
 
