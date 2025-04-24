@@ -15,6 +15,7 @@ Card* createCard(char rank, char suit) {
     newCard->rank = rank;
     newCard->suit = suit;
     newCard->next = NULL;
+    newCard->previous = NULL;
     return newCard;
 }
 
@@ -29,7 +30,7 @@ Card* createDeckShuffled() {
         }
     }
 
-    for (int i = 51; i > 0; i--) {
+    for (int i = 0; i < 51; i++) {
         int j = rand() % (1 + i);
         Card* temp = allCards[i];
         allCards[i] = allCards[j];

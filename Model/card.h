@@ -10,6 +10,7 @@ typedef struct Card {
     char rank;
     char suit;
     int visible;
+    struct Card* previous;
     struct Card* next;
 } Card;
 
