@@ -44,7 +44,6 @@ Card* createDeckShuffled() {
     allCards[51]->next = NULL;
 
     return allCards[0];
-
 }
 
 void printDeck(Card* firstCard) {
@@ -64,3 +63,19 @@ void freeDeck(Card* firstCard) {
     }
 }
 
+
+void saveDeckToFile(Card* deck, const char* filename) {
+    FILE* file = fopen(filename, "w");
+    if (!file) {
+        printf("Error: Could not open file '%s' for writing.\n", filename);
+        return;
+    }
+    Card* current = deck;
+    while (current != NULL) {
+        fprintf(file, "%c%c\n", current->rank, current->suit);
+        current = current->next;
+    }
+
+    fclose(file);
+    printf("Deck saved to '%s'\n", filename);
+}

@@ -19,4 +19,7 @@ Card* createDeckShuffled();
 void printDeck(Card* firstCard);
 void freeDeck(Card* firstCard);
 
+void saveDeckToFile(Card* deck, const char* filename);
+
+
 #endif // CARD_H
