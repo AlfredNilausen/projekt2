@@ -6,8 +6,11 @@
 
 #include <stdio.h>
 
-void printLD() {
+void printLD(Deck* deck) {
     printf("Please enter a keyboard input:\n");
+}
+void printSW(Deck* deck) {
+    printf("Please enter a SW input:\n");
 }
 void printBoard() {
 

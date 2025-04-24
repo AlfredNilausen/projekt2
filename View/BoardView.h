@@ -4,6 +4,10 @@
 
 #ifndef BOARDVIEW_H
 #define BOARDVIEW_H
-void printLD();
+
+#include "../Model/deck.h"
+
+void printLD(Deck* deck);
+void printSW(Deck* deck);
 void printBoard();
 #endif //BOARDVIEW_H
