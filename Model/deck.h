@@ -11,7 +11,7 @@ typedef struct Deck {
 } Deck;
 
 
-void addCard(Card* card, Deck* deck);
+int addCard(Card* card, Deck* deck);
 Deck createDeck();
 
 #endif

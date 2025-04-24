@@ -1,3 +1,3 @@
-/Users/magnusfehrmann/Desktop/Machine oriented programming/Projekt 2/cmake-build-debug/CMakeFiles/projekt2.dir
-/Users/magnusfehrmann/Desktop/Machine oriented programming/Projekt 2/cmake-build-debug/CMakeFiles/edit_cache.dir
-/Users/magnusfehrmann/Desktop/Machine oriented programming/Projekt 2/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+C:/Users/alfre/CLionProjects/projekt2/cmake-build-debug/CMakeFiles/projekt2.dir
+C:/Users/alfre/CLionProjects/projekt2/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Users/alfre/CLionProjects/projekt2/cmake-build-debug/CMakeFiles/rebuild_cache.dir

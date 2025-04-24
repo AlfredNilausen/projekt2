@@ -6,7 +6,16 @@
 #include <time.h>
 #include "../Model/deck.h"
 
-void addCard(Card* card, Deck* deck) {
+int addCard(Card* card, Deck* deck) {
+
+  Card* current = deck->top;
+  while (current != NULL) {
+    if (current->rank == card->rank && current->suit == card->suit) {
+      return -1;
+    }
+    current = current->next;
+  }
+
   card->next = NULL;
   card->previous = NULL;
 
@@ -19,11 +28,14 @@ void addCard(Card* card, Deck* deck) {
     deck->bottom = card;
   }
   deck->size++;
+  return 1;
 }
 
 Deck createDeck() {
   Deck* deck = (Deck*) malloc(sizeof(Deck));
+  deck-> size = 0;
   deck->top = NULL;
   deck->bottom = NULL;
+
   return *deck;
 }

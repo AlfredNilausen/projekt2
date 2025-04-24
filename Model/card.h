@@ -13,7 +13,6 @@ typedef struct Card {
     struct Card* previous;
     struct Card* next;
 } Card;
-
 // Function declarations
 Card* createCard(char rank, char suit);
 Card* createDeckShuffled();
