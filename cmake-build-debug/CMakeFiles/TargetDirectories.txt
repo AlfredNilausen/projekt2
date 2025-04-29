@@ -1,3 +1,4 @@
-C:/Users/alfre/CLionProjects/projekt2/cmake-build-debug/CMakeFiles/projekt2.dir
-C:/Users/alfre/CLionProjects/projekt2/cmake-build-debug/CMakeFiles/edit_cache.dir
-C:/Users/alfre/CLionProjects/projekt2/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+C:/Users/Bruger/CLionProjects/projekt2/cmake-build-debug/CMakeFiles/projekt2.dir
+C:/Users/Bruger/CLionProjects/projekt2/cmake-build-debug/CMakeFiles/testDeck.dir
+C:/Users/Bruger/CLionProjects/projekt2/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Users/Bruger/CLionProjects/projekt2/cmake-build-debug/CMakeFiles/rebuild_cache.dir
