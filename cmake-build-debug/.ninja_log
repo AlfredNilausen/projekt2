@@ -1,0 +1,7 @@
+# ninja log v6
+190	662	7676474717961818	CMakeFiles/projekt2.dir/Model/deck.c.obj	a9b8685fc58e7c9b
+98	727	7676474717036430	CMakeFiles/projekt2.dir/Model/card.c.obj	362405737d2fcb54
+175	728	7676474717801777	CMakeFiles/projekt2.dir/Model/columns.c.obj	63cb55a9858260c0
+8	731	7676474716141026	CMakeFiles/projekt2.dir/Controller/main.c.obj	8d27858217261b89
+664	885	7676474722707624	CMakeFiles/projekt2.dir/View/BoardView.c.obj	a62b6180b4d25df2
+886	1253	7676474724917152	projekt2.exe	26fb40ef019262d8
