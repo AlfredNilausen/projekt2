@@ -12,9 +12,10 @@
 #include "GameController.h"
 #include "../Model/Game.h"
 
+
 int LD(const char* filename) {
     char fullpath[512];  // Ensure this is big enough
-    snprintf(fullpath, sizeof(fullpath), "C:\\Users\\alfre\\CLionProjects\\projekt2\\Model\\%s", filename);
+    snprintf(fullpath, sizeof(fullpath), "../Model/%s",  filename);
     int cards = 0;
     int letters = 0;
     Deck tempdeck = createDeck();
@@ -45,7 +46,7 @@ int LD(const char* filename) {
     fclose(file);
     if (cards == 52) {
         setDeck(tempdeck);
-        dealcardstocolumn(&tempdeck);
+        //dealcardstocolumn(&tempdeck);
         return cards;
     } else {
         return -4;
