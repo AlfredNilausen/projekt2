@@ -11,6 +11,7 @@ typedef struct Column {
 } Column;
 
 Column* createColumn();
+Card* getCardCol(int index, Column* column);
 int dealcardstocolumn(Deck* deck);
 void addCardColumn(Card* card, Column* column);
 Card* removeCardColumn(Column* column);

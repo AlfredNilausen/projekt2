@@ -120,3 +120,13 @@ int dealcardstocolumn(Deck* deck) {
     printf("Total cards dealt: %d\n", total);
     return total;
 }
+Card* getCardCol(int index, Column* column) {
+    Card *current = column->top;
+    for (int i = 0; i < index; i++) {
+        current = current->next;
+        if (current == NULL) {
+            return current;
+        }
+    }
+    return current;
+}

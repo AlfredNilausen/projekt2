@@ -47,6 +47,7 @@ int LD(const char* filename) {
     if (cards == 52) {
         setDeck(tempdeck);
         dealcardstocolumn(&tempdeck);
+        printBoard();
         return cards;
     } else {
         return -4;
