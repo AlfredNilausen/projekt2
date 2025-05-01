@@ -1,0 +1,4 @@
+C:/Users/Bruger/CLionProjects/projekt2/cmake-build-debug/CMakeFiles/projekt2.dir
+C:/Users/Bruger/CLionProjects/projekt2/cmake-build-debug/CMakeFiles/Test.dir
+C:/Users/Bruger/CLionProjects/projekt2/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Users/Bruger/CLionProjects/projekt2/cmake-build-debug/CMakeFiles/rebuild_cache.dir
