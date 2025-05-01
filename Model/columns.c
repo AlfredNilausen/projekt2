@@ -60,7 +60,7 @@ void freeColumns(Card* columns[7]) {
     }
 }
 
-Column createColumn() {
+Column* createColumn() {
     Column* newColumn = malloc(sizeof(Column));
     if (!newColumn) {
         printf("Memory allocation failed\n");
@@ -69,7 +69,7 @@ Column createColumn() {
     newColumn->bottom = NULL;
     newColumn->top = NULL;
     newColumn->size = 0;
-    return *newColumn;
+    return newColumn;
 }
 
 int addCardColumn(Card* card, Column* column) {
@@ -112,7 +112,7 @@ int dealcardstocolumn(Deck* deck) {
     else
         printf("Next card is NULL\n");
     printf("Dealing cards to columns...\n");
-    Card* current = deck->top;
+    Card* current = getTopCard(deck);
     int total = 0;
     int count = 0;
     while (current != NULL) {
@@ -122,8 +122,13 @@ int dealcardstocolumn(Deck* deck) {
         }
         printf("Dealing %c of %c to column %d\n", current->rank, current->suit, adding);
         addCardColumn(current, getColumn(adding));
-        total++;
+        if (current->next != NULL) {
+            printf("Next card to deal: %c of %c\n", current->next->rank, current->next->suit);
+        } else {
+            printf("No next card to deal, ending loop.\n");
+        }
         current = current->next;
+        total++;
         count++;
     }
     printf("Printed %d cards\n", count);

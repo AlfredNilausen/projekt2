@@ -22,12 +22,12 @@ int addCard(Card* card, Deck* deck) {
   if (deck->size == 0) {
     deck->top = card;
     deck->bottom = card;
-    card->next = NULL;
     card->previous = NULL;
+    card->next = NULL;
   } else {
-    deck->bottom->next = card;
-    card->previous = deck->bottom;
-    deck->bottom = card;
+    deck->top->previous = card;
+    card->next = deck->top;
+    deck->top = card;
     card->previous = NULL;
   }
   deck->size++;

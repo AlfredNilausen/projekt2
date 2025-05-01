@@ -55,10 +55,12 @@ int main(void) {
 
         } else if (strcmp(input, "SW") == 0) {
             if (getDeck()->size == 52) {
-                //printDeck(getDeck());
+                printDeck(getDeck());
+                /*
                 for (int i = 0; i < 7; i++) {
                     printColumn(getColumn(i));
                 }
+                */
                 strcpy(message, "Deck printed succesfully");
             } else {
                 strcpy(message, "No deck loaded");

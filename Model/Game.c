@@ -19,7 +19,7 @@ Column* getColumn(int i) {
 }
 void createColumns() {
     for (int i = 0; i < 7; i++) {
-        columns[i] = createColumn();
+        columns[i] = *createColumn();
     }
 }
 void setColumn(int i, Column column) {

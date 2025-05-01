@@ -10,7 +10,7 @@ typedef struct Column {
     int size;
 } Column;
 
-Column createColumn();
+Column* createColumn();
 int dealcardstocolumn(Deck* deck);
 int addCardColumn(Card* card, Column* column);
 Card* removeCardColumn(Column* column);
