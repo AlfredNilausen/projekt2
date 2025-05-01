@@ -117,8 +117,6 @@ int dealcardstocolumn(Deck* deck) {
         total++;
         count++;
     }
-    printf("Printed %d cards\n", count);
-    printf("Total cards dealt: %d\n", total);
     return total;
 }
 Card* getCardCol(int index, Column* column) {

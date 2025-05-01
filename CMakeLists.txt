@@ -6,6 +6,8 @@ set(CMAKE_C_STANDARD 11)
 add_executable(projekt2 Controller/main.c Model/card.c Model/columns.c Model/deck.c View/BoardView.c
         Controller/GameController.c
         Model/Game.c
-        Model/Game.h)
+        Model/Game.h
+        Model/foundation.c
+        Model/foundation.h)
 
 add_executable(Test test/test_deck.c Model/card.c Model/columns.c Model/deck.c)
