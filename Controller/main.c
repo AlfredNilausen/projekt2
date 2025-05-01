@@ -55,12 +55,19 @@ int main(void) {
 
         // SW: Show deck/columns
         } else if (strcmp(input, "SW") == 0) {
+
             if (getDeck() && getDeck()->size == 52) {
+                createColumns();
+                dealcardstocolumn(getDeck(), 1);
+                printf("\n");
+                printBoard();
+                /*
                 for (int i = 0; i < 7; i++) {
                     printf("Column %d:\n", i + 1);
                     printColumn(getColumn(i));
                     printf("\n");
                 }
+                */
                 strcpy(message, "Deck printed successfully");
             } else {
                 strcpy(message, "No deck loaded");

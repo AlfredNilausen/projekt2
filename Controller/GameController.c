@@ -29,7 +29,7 @@ int LD(const char* filename) {
         char suit = data[1];
         if ((rank >= '2' && rank <= '9') || rank == 'A' || rank == 'T' || rank == 'J' || rank == 'Q' || rank == 'K') {
             if (suit == 'H' || suit == 'D' || suit == 'C' || suit == 'S') {
-                Card *newcard = createCard(rank, suit);
+                Card *newcard = createCard(rank, suit,-1);
                 int check = addCard(newcard, &tempdeck);
                 if (check == -1) {
                     return -3;
@@ -46,7 +46,7 @@ int LD(const char* filename) {
     fclose(file);
     if (cards == 52) {
         setDeck(tempdeck);
-        dealcardstocolumn(&tempdeck);
+        dealcardstocolumn(&tempdeck, -1);
         printBoard();
         return cards;
     } else {

@@ -6,7 +6,7 @@
 const char suits[] = {'h', 'c', 'd', 's'};
 const char ranks[] = {'A', '2', '3', '4', '5', '6', '7', '8', '9', 'T', 'J', 'D', 'K'};
 
-Card* createCard(char rank, char suit) {
+Card* createCard(char rank, char suit, int visible) {
     Card* newCard = malloc(sizeof(Card));
     if (!newCard) {
         printf("Memory allocation failed\n");
@@ -14,7 +14,7 @@ Card* createCard(char rank, char suit) {
     }
     newCard->rank = rank;
     newCard->suit = suit;
-    newCard->visible = 1;
+    newCard->visible = visible;
     newCard->next = NULL;
     newCard->previous = NULL;
     return newCard;
@@ -26,7 +26,7 @@ Card* createDeckShuffled() {
 
     for (int i = 0; i < 4; i++) {
         for (int j = 0; j < 13; j++) {
-            allCards[index] = createCard(ranks[j], suits[i]);
+            allCards[index] = createCard(ranks[j], suits[i], 1);
             index++;
         }
     }
