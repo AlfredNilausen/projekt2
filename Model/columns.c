@@ -74,6 +74,7 @@ Column* createColumn() {
 
 void addCardColumn(Card* card, Column* column) {
     Card *newCard = createCard(card->rank, card->suit);
+    newCard->visible = 1;
     if (column->size == 0) {
         column->top = newCard;
         column->bottom = newCard;
@@ -81,9 +82,9 @@ void addCardColumn(Card* card, Column* column) {
         newCard->next = NULL;
         newCard->previous = NULL;
     } else {
-        newCard->next = column->top;
-        column->top->previous = newCard;
-        column->top = newCard;
+        newCard->previous = column->bottom;
+        column->bottom->next = newCard;
+        column->bottom = newCard;
         newCard->previous = NULL;
         column->size++;
     }
@@ -105,27 +106,12 @@ Card* removeCardColumn(Column* column) {
 }
 
 int dealcardstocolumn(Deck* deck) {
-    printf("Top card: %c of %c\n", deck->top->rank, deck->top->suit);
-    if (deck->top->next)
-        printf("Next card: %c of %c\n", deck->top->next->rank, deck->top->next->suit);
-    else
-        printf("Next card is NULL\n");
-    printf("Dealing cards to columns...\n");
     Card* current = getTopCard(deck);
     int total = 0;
     int count = 0;
     while (current != NULL) {
         int adding = total % 7;
-        if (getColumn(adding) == NULL) {
-            printf("Column %d is NULL!\n", adding);
-        }
-        printf("Dealing %c of %c to column %d\n", current->rank, current->suit, adding);
         addCardColumn(current, getColumn(adding));
-        if (current->next != NULL) {
-            printf("Next card to deal: %c of %c\n", current->next->rank, current->next->suit);
-        } else {
-            printf("No next card to deal, ending loop.\n");
-        }
         current = current->next;
         total++;
         count++;

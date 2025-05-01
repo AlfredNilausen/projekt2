@@ -46,7 +46,7 @@ int LD(const char* filename) {
     fclose(file);
     if (cards == 52) {
         setDeck(tempdeck);
-        //dealcardstocolumn(&tempdeck);
+        dealcardstocolumn(&tempdeck);
         return cards;
     } else {
         return -4;
