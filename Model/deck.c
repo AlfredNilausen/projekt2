@@ -6,7 +6,35 @@
 #include <time.h>
 #include "../Model/deck.h"
 
-int addCard(Card* card, Deck* deck) {
+int addCardTop(Card* card, Deck* deck) {
+
+  Card* current = deck->top;
+  while (current != NULL) {
+    if (current->rank == card->rank && current->suit == card->suit) {
+      return -1;
+    }
+    current = current->next;
+  }
+
+  card->next = NULL;
+  card->previous = NULL;
+
+  if (deck->size == 0) {
+    deck->top = card;
+    deck->bottom = card;
+    card->previous = NULL;
+    card->next = NULL;
+  } else {
+    deck->top->previous = card;
+    card->next = deck->top;
+    deck->top = card;
+    card->previous = NULL;
+
+  }
+  deck->size++;
+  return 1;
+}
+int addCardBottom(Card* card, Deck* deck) {
 
   Card* current = deck->top;
   while (current != NULL) {
@@ -29,7 +57,6 @@ int addCard(Card* card, Deck* deck) {
     card->previous = deck->bottom;
     deck->bottom = card;
     card->next = NULL;
-
   }
   deck->size++;
   return 1;
@@ -60,26 +87,28 @@ Card* removeCardFromDeck(Deck* deck) {
 
 
 
-Deck splitDeck(Deck* deck, int size) {
+Deck splitDeck(Deck *deck, int size) {
   Deck newDeck = createDeck();
   Deck resultDeck = createDeck();
-
+  int total = 0;
   if (size > deck->size || size < 0) return resultDeck;
-
-
   for (int i = 0; i < size; i++) {
-    addCard(removeCardFromDeck(deck), &newDeck);
+    addCardTop(removeCardFromDeck(deck), &newDeck);
   }
   
   while (deck->size > 0 || newDeck.size > 0) {
     if (deck->size > 0) {
-      addCard(removeCardFromDeck(deck), &resultDeck);
+      addCardTop(removeCardFromDeck(deck), &resultDeck);
+      total++;
     }
     if (newDeck.size > 0) {
-      addCard(removeCardFromDeck(&newDeck), &resultDeck);
+      addCardTop(removeCardFromDeck(&newDeck), &resultDeck);
+      total++;
     }
   }
-
+  resultDeck.bottom->next = deck->top;
+  deck->top->previous = resultDeck.bottom;
+  resultDeck.bottom = deck->bottom;
   return resultDeck;
 }
 
