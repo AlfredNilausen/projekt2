@@ -12,7 +12,8 @@ typedef struct Deck {
 
 
 int addCard(Card* card, Deck* deck);
-
+Deck splitDeck(Deck* deck);
+Card* removeCardFromDeck(Deck* deck);
 Card* getTopCard(Deck* deck);
 Deck createDeck();
 void printDeck(Deck* deck);
