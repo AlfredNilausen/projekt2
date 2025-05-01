@@ -13,7 +13,8 @@ typedef struct Column {
 Column* createColumn();
 Card* getCardCol(int index, Column* column);
 int dealcardstocolumn(Deck* deck);
-void addCardColumn(Card* card, Column* column);
+int playdealcard(Deck* deck);
+void addCardColumn(Card* card, Column* column, int visible);
 Card* removeCardColumn(Column* column);
 //void dealToColumns(Card* shuffledDeck, Card* columns[7]);
 void printColumn(Column* column);

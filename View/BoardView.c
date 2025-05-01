@@ -22,7 +22,11 @@ void printBoard() {
             Column *printColumn = getColumn(i);
             Card *printCard = getCardCol(j, printColumn);
             if (printCard != NULL) {
-                printf("%c%c\t",printCard->rank, printCard->suit);
+                if (printCard->visible > 0) {
+                    printf("%c%c\t",printCard->rank, printCard->suit);
+                } else {
+                    printf("[]\t");
+                }
             } else {
                 printf("  \t");
             }

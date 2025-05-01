@@ -72,9 +72,9 @@ Column* createColumn() {
     return newColumn;
 }
 
-void addCardColumn(Card* card, Column* column) {
+void addCardColumn(Card* card, Column* column, int visible) {
     Card *newCard = createCard(card->rank, card->suit);
-    newCard->visible = 1;
+    newCard->visible = visible;
     if (column->size == 0) {
         column->top = newCard;
         column->bottom = newCard;
@@ -112,7 +112,7 @@ int dealcardstocolumn(Deck* deck) {
     int count = 0;
     while (current != NULL) {
         int adding = total % 7;
-        addCardColumn(current, getColumn(adding));
+        addCardColumn(current, getColumn(adding), 1);
         current = current->next;
         total++;
         count++;
@@ -128,4 +128,34 @@ Card* getCardCol(int index, Column* column) {
         }
     }
     return current;
+}
+
+int playdealcard(Deck* deck) {
+    createColumns();
+    Card* current = getTopCard(deck);
+    int total = 0;
+    int count = 0;
+    int visible = 1;
+    addCardColumn(current, getColumn(0), 1);
+    current = current->next;
+    for (int j = 0; j < 6; j++) {
+        for (int i = 1; i < 7; i++) {
+            if (j < i) {
+                visible = -1;
+            }
+            addCardColumn(current, getColumn(i), visible);
+            visible = 1;
+            current = current->next;
+        }
+    }
+    for (int j = 0; j < 5; j++) {
+        for (int i = j+2; i < 7; i++) {
+            addCardColumn(current, getColumn(i), 1);
+            current = current->next;
+        }
+    }
+
+
+
+    return total;
 }

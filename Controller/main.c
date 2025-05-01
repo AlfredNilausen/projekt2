@@ -69,7 +69,9 @@ int main(void) {
         // P: Start game
         } else if (strcmp(input, "P") == 0) {
             if (getDeck() && getDeck()->size == 52) {
-                dealcardstocolumn(getDeck());
+                printf("\n");
+                playdealcard(getDeck());
+                printBoard();
                 playing = 1;
                 strcpy(message, "Game started!");
 
