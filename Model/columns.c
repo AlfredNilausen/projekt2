@@ -85,8 +85,9 @@ void addCardColumn(Card* card, Column* column) {
         newCard->previous = column->bottom;
         column->bottom->next = newCard;
         column->bottom = newCard;
-        newCard->previous = NULL;
+        newCard->next = NULL;
         column->size++;
+
     }
 }
 Card* removeCardColumn(Column* column) {
