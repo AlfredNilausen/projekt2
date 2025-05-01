@@ -79,6 +79,18 @@ build CMakeFiles/projekt2.dir/View/BoardView.c.obj: C_COMPILER__projekt2_unscann
   OBJECT_DIR = CMakeFiles\projekt2.dir
   OBJECT_FILE_DIR = CMakeFiles\projekt2.dir\View
 
+build CMakeFiles/projekt2.dir/Controller/GameController.c.obj: C_COMPILER__projekt2_unscanned_Debug C$:/Users/alfre/CLionProjects/projekt2/Controller/GameController.c || cmake_object_order_depends_target_projekt2
+  DEP_FILE = CMakeFiles\projekt2.dir\Controller\GameController.c.obj.d
+  FLAGS = -g -std=gnu11 -fdiagnostics-color=always
+  OBJECT_DIR = CMakeFiles\projekt2.dir
+  OBJECT_FILE_DIR = CMakeFiles\projekt2.dir\Controller
+
+build CMakeFiles/projekt2.dir/Model/Game.c.obj: C_COMPILER__projekt2_unscanned_Debug C$:/Users/alfre/CLionProjects/projekt2/Model/Game.c || cmake_object_order_depends_target_projekt2
+  DEP_FILE = CMakeFiles\projekt2.dir\Model\Game.c.obj.d
+  FLAGS = -g -std=gnu11 -fdiagnostics-color=always
+  OBJECT_DIR = CMakeFiles\projekt2.dir
+  OBJECT_FILE_DIR = CMakeFiles\projekt2.dir\Model
+
 
 # =============================================================================
 # Link build statements for EXECUTABLE target projekt2
@@ -87,7 +99,7 @@ build CMakeFiles/projekt2.dir/View/BoardView.c.obj: C_COMPILER__projekt2_unscann
 #############################################
 # Link the executable projekt2.exe
 
-build projekt2.exe: C_EXECUTABLE_LINKER__projekt2_Debug CMakeFiles/projekt2.dir/Controller/main.c.obj CMakeFiles/projekt2.dir/Model/card.c.obj CMakeFiles/projekt2.dir/Model/columns.c.obj CMakeFiles/projekt2.dir/Model/deck.c.obj CMakeFiles/projekt2.dir/View/BoardView.c.obj
+build projekt2.exe: C_EXECUTABLE_LINKER__projekt2_Debug CMakeFiles/projekt2.dir/Controller/main.c.obj CMakeFiles/projekt2.dir/Model/card.c.obj CMakeFiles/projekt2.dir/Model/columns.c.obj CMakeFiles/projekt2.dir/Model/deck.c.obj CMakeFiles/projekt2.dir/View/BoardView.c.obj CMakeFiles/projekt2.dir/Controller/GameController.c.obj CMakeFiles/projekt2.dir/Model/Game.c.obj
   FLAGS = -g
   LINK_LIBRARIES = -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
   OBJECT_DIR = CMakeFiles\projekt2.dir

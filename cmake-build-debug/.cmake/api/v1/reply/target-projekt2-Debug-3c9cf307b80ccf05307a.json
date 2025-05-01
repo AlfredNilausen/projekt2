@@ -2,10 +2,10 @@
 	"artifacts" : 
 	[
 		{
-			"path" : "Test.exe"
+			"path" : "projekt2.exe"
 		},
 		{
-			"path" : "Test.pdb"
+			"path" : "projekt2.pdb"
 		}
 	],
 	"backtrace" : 1,
@@ -27,7 +27,7 @@
 			{
 				"command" : 0,
 				"file" : 0,
-				"line" : 8,
+				"line" : 6,
 				"parent" : 0
 			}
 		]
@@ -55,11 +55,14 @@
 				0,
 				1,
 				2,
-				3
+				3,
+				4,
+				5,
+				6
 			]
 		}
 	],
-	"id" : "Test::@6890427a1f51a3e7e1df",
+	"id" : "projekt2::@6890427a1f51a3e7e1df",
 	"link" : 
 	{
 		"commandFragments" : 
@@ -79,8 +82,8 @@
 		],
 		"language" : "C"
 	},
-	"name" : "Test",
-	"nameOnDisk" : "Test.exe",
+	"name" : "projekt2",
+	"nameOnDisk" : "projekt2.exe",
 	"paths" : 
 	{
 		"build" : ".",
@@ -95,7 +98,17 @@
 				0,
 				1,
 				2,
-				3
+				3,
+				4,
+				5,
+				6
+			]
+		},
+		{
+			"name" : "Header Files",
+			"sourceIndexes" : 
+			[
+				7
 			]
 		}
 	],
@@ -104,7 +117,7 @@
 		{
 			"backtrace" : 1,
 			"compileGroupIndex" : 0,
-			"path" : "test/test_deck.c",
+			"path" : "Controller/main.c",
 			"sourceGroupIndex" : 0
 		},
 		{
@@ -124,6 +137,29 @@
 			"compileGroupIndex" : 0,
 			"path" : "Model/deck.c",
 			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "View/BoardView.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "Controller/GameController.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "Model/Game.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "Model/Game.h",
+			"sourceGroupIndex" : 1
 		}
 	],
 	"type" : "EXECUTABLE"
