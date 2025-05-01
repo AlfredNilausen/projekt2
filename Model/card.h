@@ -16,7 +16,7 @@ typedef struct Card {
 // Function declarations
 Card* createCard(char rank, char suit);
 Card* createDeckShuffled();
-void printDeck(Card* firstCard);
+
 void freeDeck(Card* firstCard);
 
 void saveDeckToFile(Card* deck, const char* filename);

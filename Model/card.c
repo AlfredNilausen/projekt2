@@ -14,6 +14,7 @@ Card* createCard(char rank, char suit) {
     }
     newCard->rank = rank;
     newCard->suit = suit;
+    newCard->visible = 1;
     newCard->next = NULL;
     newCard->previous = NULL;
     return newCard;
@@ -46,13 +47,7 @@ Card* createDeckShuffled() {
     return allCards[0];
 }
 
-void printDeck(Card* firstCard) {
-    Card* current = firstCard;
-    while (current != NULL) {
-        printf("%c of %c\n", current->rank, current->suit);
-        current = current->next;
-    }
-}
+
 
 void freeDeck(Card* firstCard) {
     Card* current = firstCard;

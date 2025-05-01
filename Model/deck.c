@@ -22,10 +22,13 @@ int addCard(Card* card, Deck* deck) {
   if (deck->size == 0) {
     deck->top = card;
     deck->bottom = card;
+    card->next = NULL;
+    card->previous = NULL;
   } else {
     deck->bottom->next = card;
     card->previous = deck->bottom;
     deck->bottom = card;
+    card->previous = NULL;
   }
   deck->size++;
   return 1;
@@ -38,4 +41,16 @@ Deck createDeck() {
   deck->bottom = NULL;
 
   return *deck;
+}
+Card* getTopCard(Deck* deck) {
+  return deck->top;
+}
+
+void printDeck(Deck* deck) {
+  Card* current = getTopCard(deck);
+  printf("\n");
+  while (current != NULL) {
+    printf("%c of %c\n", current->rank, current->suit);
+    current = current->next;
+  }
 }

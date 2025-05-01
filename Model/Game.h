@@ -6,6 +6,8 @@
 #define GAME_H
 #include "deck.h"
 
-Deck getDeck();
+Column* getColumn(int i);
+void createColumns();
+Deck *getDeck();
 void setDeck(Deck);
 #endif //GAME_H

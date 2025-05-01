@@ -14,7 +14,7 @@
 
 int main(void) {
     setDeck(createDeck());
-    Deck currentdeck = getDeck();
+    createDeck();
     srand(time(NULL)); // random til shuffle
 
     Card* deck = NULL;
@@ -54,21 +54,26 @@ int main(void) {
             }
 
         } else if (strcmp(input, "SW") == 0) {
-            if (deck)
-                printDeck(deck);
-            else
+            if (getDeck()->size == 52) {
+                //printDeck(getDeck());
+                for (int i = 0; i < 7; i++) {
+                    printColumn(getColumn(i));
+                }
+                strcpy(message, "Deck printed succesfully");
+            } else {
                 strcpy(message, "No deck loaded");
+            }
 
         } else if (strcmp(input, "P") == 0) {
             if (!deck) {
                 strcpy(message, "No deck loaded to play");
             } else {
-                dealToColumns(deck, columns);
+                //dealcardstocolumn(deck, columns);
                 strcpy(message, "Game started!");
             }
 
         } else if (strcmp(input, "C") == 0) {
-            printColumns(columns);
+            //printColumn(columns);
             strcpy(message, "Columns printed");
 
         } else if (strcmp(input, "Q") == 0) {

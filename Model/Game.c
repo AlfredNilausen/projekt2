@@ -12,9 +12,21 @@
 #include "../Controller/GameController.h"
 
 Deck currentDeck;
+Column columns[7];
 
-Deck getDeck() {
-    return currentDeck;
+Column* getColumn(int i) {
+    return &columns[i];
+}
+void createColumns() {
+    for (int i = 0; i < 7; i++) {
+        columns[i] = createColumn();
+    }
+}
+void setColumn(int i, Column column) {
+    columns[i] = column;
+}
+Deck *getDeck() {
+    return &currentDeck;
 }
 void setDeck(Deck d) {
     currentDeck = d;
