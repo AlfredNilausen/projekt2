@@ -72,21 +72,20 @@ Column* createColumn() {
     return newColumn;
 }
 
-int addCardColumn(Card* card, Column* column) {
+void addCardColumn(Card* card, Column* column) {
+    Card *newCard = createCard(card->rank, card->suit);
     if (column->size == 0) {
-        column->top = card;
-        column->bottom = card;
+        column->top = newCard;
+        column->bottom = newCard;
         column->size = 1;
-        card->next = NULL;
-        card->previous = NULL;
-        return 1;
+        newCard->next = NULL;
+        newCard->previous = NULL;
     } else {
-        card->next = column->top;
-        column->top->previous = card;
-        column->top = card;
-        card->previous = NULL;
+        newCard->next = column->top;
+        column->top->previous = newCard;
+        column->top = newCard;
+        newCard->previous = NULL;
         column->size++;
-        return 1;
     }
 }
 Card* removeCardColumn(Column* column) {
