@@ -10,5 +10,8 @@
 int LD(const char* filename);
 char* keyboardInput();
 void errorcode(int);
+
 #endif //GAMECONTROLLER_H
+
+
 

@@ -8,6 +8,8 @@
 #include "../View/BoardView.h"
 #include "../Controller/GameController.h"
 #include "../Model/Game.h"
+#include "MoveLogic.h"
+
 
 #define MAX_INPUT 100
 
@@ -80,14 +82,14 @@ int main(void) {
                 playdealcard(getDeck());
                 printBoard();
                 playing = 1;
-                strcpy(message, "Game started!");
+                printf("\nGame started!");
 
 
                 // -------- PLAY PHASE --------
                 while (playing) {
-                    printf("\nGAME PHASE\nINPUT > ");
                     fgets(input, sizeof(input), stdin);
                     input[strcspn(input, "\n")] = 0;
+
 
                     // QQ: Quit entire program
                     if (strcmp(input, "QQ") == 0) {
@@ -110,6 +112,17 @@ int main(void) {
                             printColumn(getColumn(i));
                         }
                     }
+                    else if (strchr(input, '-') != NULL) {
+                        int success = handleMoveCommand(input);
+                        if (success) {
+                            printf("Move is valid\n");
+                            printBoard();
+                        }
+                        else {
+                            printf("Invalid move\n");
+                        }
+                    }
+
 
                     else {
                         printf("Unknown in-game command: %s\n", input);

@@ -8,6 +8,8 @@ add_executable(projekt2 Controller/main.c Model/card.c Model/columns.c Model/dec
         Model/Game.c
         Model/Game.h
         Model/foundation.c
-        Model/foundation.h)
+        Model/foundation.h
+        Controller/MoveLogic.c
+        Controller/MoveLogic.h)
 
 add_executable(Test test/test_deck.c Model/card.c Model/columns.c Model/deck.c)
