@@ -16,9 +16,7 @@ int rankToValue(char rank) {
     return -1;
 }
 
-int getColor(char suit) {
-    return (suit == 'H' || suit == 'D') ? 0 : 1; // 0 = red, 1 = black
-}
+
 
 int handleMoveCommand(const char* command) {
     char from[10], to[10];
@@ -68,7 +66,7 @@ int handleMoveCommand(const char* command) {
     Card* dest = toCol->bottom;
     int sr = rankToValue(movingCard->rank);
     int dr = dest ? rankToValue(dest->rank) : -1;
-    int valid = (!dest) || ((sr == dr - 1) && getColor(movingCard->suit) != getColor(dest->suit));
+    int valid = (!dest) || ((sr == dr - 1));
 
     if (!valid) return 0;
 
