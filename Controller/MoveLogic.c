@@ -58,6 +58,13 @@ int handleMoveCommand(const char* command) {
 
     if (!movingCard) return 0;
 
+    int moveCount = 0;
+    Card* temp = movingCard;
+    while (temp != NULL) {
+        moveCount++;
+        temp = temp->next;
+    }
+
     Card* dest = toCol->bottom;
     int sr = rankToValue(movingCard->rank);
     int dr = dest ? rankToValue(dest->rank) : -1;
@@ -74,8 +81,11 @@ int handleMoveCommand(const char* command) {
         if (movingCard->previous) {
             movingCard->previous->next = NULL;
             fromCol->bottom = movingCard->previous;
-            fromCol->size--;
+            fromCol->size -= moveCount;
         }
+    }
+    if (fromCol->bottom && fromCol->bottom->visible == 0) {
+        fromCol->bottom->visible = 1;
     }
 
 
@@ -86,11 +96,12 @@ int handleMoveCommand(const char* command) {
     } else {
         toCol->bottom->next = movingCard;
         movingCard->previous = toCol->bottom;
+
     }
 
     while (movingCard->next) movingCard = movingCard->next;
     toCol->bottom = movingCard;
-    toCol->size++;
+    toCol->size += moveCount;
 
     return 1;
 }
