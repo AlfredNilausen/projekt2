@@ -91,7 +91,7 @@ Deck splitDeck(Deck *deck, int size) {
   Deck newDeck = createDeck();
   Deck resultDeck = createDeck();
   int total = 0;
-  if (size > deck->size || size < 0) return resultDeck;
+  if (size > deck->size || size < 0) return *deck;
   for (int i = 0; i < size; i++) {
     addCardTop(removeCardFromDeck(deck), &newDeck);
   }
@@ -106,9 +106,7 @@ Deck splitDeck(Deck *deck, int size) {
       total++;
     }
   }
-  resultDeck.bottom->next = deck->top;
-  deck->top->previous = resultDeck.bottom;
-  resultDeck.bottom = deck->bottom;
+
   return resultDeck;
 }
 
