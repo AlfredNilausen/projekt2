@@ -84,7 +84,7 @@ int handleMoveCommand(const char* command) {
             fromCol->size -= moveCount;
         }
     }
-    if (fromCol->bottom && fromCol->bottom->visible == 0) {
+    if (fromCol->bottom && fromCol->bottom->visible < 0) {
         fromCol->bottom->visible = 1;
     }
 
