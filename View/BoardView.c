@@ -6,6 +6,7 @@
 
 #include <stdio.h>
 
+#include "../Model/foundation.h"
 #include "../Model/Game.h"
 
 void printLD(Deck* deck) {
@@ -17,7 +18,12 @@ void printSW(Deck* deck) {
 void printBoard() {
     int start = 7;
     int biggest = biggestColumn();
-    int total = start>biggest*start + biggest>start*biggest;
+    int total = 0;
+    if (biggest > start) {
+        total = biggest;
+    } else {
+        total = start;
+    }
     printf("\nC1\tC2\tC3\tC4\tC5\tC6\tC7\n\n");
     for (int j = 0; j < biggest; j++) {
         for (int i = 0; i < 7; i++) {
@@ -32,6 +38,16 @@ void printBoard() {
             } else {
                 printf("  \t");
             }
+        }
+        if (j % 2 == 0 && j < start) {
+            Card* foundationCard = getTopCardFoundation(getFoundation(j / 2));
+            printf("\t");
+            if (foundationCard != NULL) {
+                printf("%c%c\t",foundationCard->rank, foundationCard->suit);
+            } else {
+                printf("[]\t");
+            }
+            printf("F%d", (j / 2) + 1);
         }
         printf("\n");
     }

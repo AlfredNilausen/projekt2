@@ -5,6 +5,8 @@
 #include <stdlib.h>
 #include <string.h>
 #include <time.h>
+
+#include "foundation.h"
 #include "../Model/card.h"
 #include "../Model/columns.h"
 #include "../Model/deck.h"
@@ -13,9 +15,13 @@
 
 Deck currentDeck;
 Column columns[7];
+Foundation foundations[4];
 
 Column* getColumn(int i) {
     return &columns[i];
+}
+Foundation* getFoundation(int i) {
+    return &foundations[i];
 }
 void createColumns() {
     for (int i = 0; i < 7; i++) {
@@ -33,6 +39,9 @@ int isColumnthere() {
 }
 void setColumn(int i, Column column) {
     columns[i] = column;
+}
+void setFoundation(int i, Foundation foundation) {
+    foundations[i] = foundation;
 }
 Deck *getDeck() {
     return &currentDeck;
