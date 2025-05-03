@@ -30,7 +30,7 @@ int LD(const char* filename) {
         if ((rank >= '2' && rank <= '9') || rank == 'A' || rank == 'T' || rank == 'J' || rank == 'Q' || rank == 'K') {
             if (suit == 'H' || suit == 'D' || suit == 'C' || suit == 'S') {
                 Card *newcard = createCard(rank, suit,-1);
-                int check = addCard(newcard, &tempdeck);
+                int check = addCardBottom(newcard, &tempdeck);
                 if (check == -1) {
                     return -3;
                 }

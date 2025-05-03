@@ -47,6 +47,7 @@ int main(void) {
 
         // LD <filename>
         if (strncmp(input, "LD", 2) == 0) {
+            createColumns();
             int tal = LD(input + 3);
             if (tal == 52) {
                 strcpy(message, "Loading deck completed");
@@ -55,10 +56,16 @@ int main(void) {
                 strcpy(message, "Error loading deck");
             }
 
-        // SW: Show deck/columns
+
+            // SW: Show deck/columns
+        } else if (strncmp(input, "SL", 2) == 0) {
+            int splitnumber = atoi(input + 3);
+            setDeck(splitDeck(getDeck(), splitnumber));
         } else if (strcmp(input, "SW") == 0) {
+            //printDeck(getDeck());
 
             if (getDeck() && getDeck()->size == 52) {
+
                 createColumns();
                 dealcardstocolumn(getDeck(), 1);
                 printf("\n");
