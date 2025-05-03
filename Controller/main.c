@@ -61,6 +61,7 @@ int main(void) {
         } else if (strncmp(input, "SL", 2) == 0) {
             int splitnumber = atoi(input + 3);
             setDeck(splitDeck(getDeck(), splitnumber));
+            strcpy(message, "Splitted and assembled deck succesfully");
         } else if (strcmp(input, "SW") == 0) {
             //printDeck(getDeck());
 
