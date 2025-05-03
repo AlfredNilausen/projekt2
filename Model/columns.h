@@ -18,7 +18,7 @@ void addCardColumn(Card* card, Column* column, int visible);
 Card* removeCardColumn(Column* column);
 //void dealToColumns(Card* shuffledDeck, Card* columns[7]);
 void printColumn(Column* column);
-void freeColumns(Card* columns[7]);
+void freeColumns();
 
 #endif // COLUMNS_H
 

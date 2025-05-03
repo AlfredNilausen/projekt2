@@ -4,36 +4,7 @@
 #include <stdlib.h>
 #include "Game.h"
 #include "deck.h"
-/*
-void dealToColumns(Card* shuffledDeck, Card* columns[7]) {
-    Card* current = shuffledDeck;
 
-    for (int col = 0; col < 7; col++) {
-        int faceDown = col;
-        int faceUp = (col == 0) ? 1 : 5;
-        int total = faceDown + faceUp;
-
-        Card* last = NULL;
-
-        for (int i = 0; i < total; i++) {
-            Card* next = current->next;
-            current->next = NULL;
-
-            current->visible = (i >= faceDown) ? 1 : 0;
-
-            if (columns[col] == NULL) {
-                columns[col] = current;
-                last = current;
-            } else {
-                last->next = current;
-                last = current;
-            }
-
-            current = next;
-        }
-    }
-}
-*/
 
 void printColumn(Column* column) {
     Card* current = column->top;
@@ -48,15 +19,20 @@ void printColumn(Column* column) {
 
 }
 
-void freeColumns(Card* columns[7]) {
+void freeColumns() {
     for (int i = 0; i < 7; i++) {
-        Card* current = columns[i];
-        while (current != NULL) {
-            Card* next = current->next;
-            free(current);
-            current = next;
+        Column* current = getColumn(i);
+        if (current) {
+            Card* currentCard = current->top;
+            while (currentCard != NULL) {
+                Card* next = currentCard->next;
+                free(currentCard);
+                currentCard = next;
+            }
+            current->top = NULL;
+            current->bottom = NULL;
+            current->size = 0;
         }
-        columns[i] = NULL;
     }
 }
 
@@ -106,12 +82,15 @@ Card* removeCardColumn(Column* column) {
 }
 
 int dealcardstocolumn(Deck* deck, int visible) {
+    freeColumns();
+    createColumns();
     Card* current = getTopCard(deck);
     int total = 0;
     int count = 0;
     while (current != NULL) {
         int adding = total % 7;
-        addCardColumn(current, getColumn(adding), visible);
+        Card* newCard = createCard(current->rank, current->suit, visible);
+        addCardColumn(newCard, getColumn(adding), visible);
         current = current->next;
         total++;
         count++;

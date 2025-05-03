@@ -7,6 +7,7 @@
 #include "deck.h"
 
 Column* getColumn(int i);
+void setColumn(int i, Column* column);
 void createColumns();
 Deck *getDeck();
 int isColumnthere();

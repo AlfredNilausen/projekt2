@@ -14,6 +14,7 @@
 
 
 int LD(const char* filename) {
+
     char fullpath[512];  // Ensure this is big enough
     snprintf(fullpath, sizeof(fullpath), "../Model/%s",  filename);
     int cards = 0;

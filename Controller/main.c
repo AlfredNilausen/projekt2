@@ -16,6 +16,7 @@
 int main(void) {
     srand(time(NULL));
     setDeck(createDeck());
+    createColumns();
 
     char input[MAX_INPUT];
     char lastCommand[MAX_INPUT] = "";
@@ -47,7 +48,6 @@ int main(void) {
 
         // LD <filename>
         if (strncmp(input, "LD", 2) == 0) {
-            createColumns();
             int tal = LD(input + 3);
             if (tal == 52) {
                 strcpy(message, "Loading deck completed");
@@ -65,8 +65,6 @@ int main(void) {
             //printDeck(getDeck());
 
             if (getDeck() && getDeck()->size == 52) {
-
-                createColumns();
                 dealcardstocolumn(getDeck(), 1);
                 printf("\n");
                 printBoard();
