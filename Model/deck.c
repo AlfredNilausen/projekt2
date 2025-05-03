@@ -34,6 +34,31 @@ int addCardTop(Card* card, Deck* deck) {
   deck->size++;
   return 1;
 }
+
+int addCard (Card* card, Deck* deck) {
+  Card* current = deck->top;
+  while (current != NULL) {
+    if (current->rank == card->rank && current->suit == card->suit) {
+      return -1;
+    }
+    current = current->next;
+  }
+
+  if (deck->size == 52) {
+    return -1;
+  } else if (deck->size == 0) {
+    deck->top = card;
+    deck->bottom = card;
+    card->previous = NULL;
+    card->next = NULL;
+  } else {
+
+  }
+
+  deck->size++;
+  return 1;
+}
+
 int addCardBottom(Card* card, Deck* deck) {
 
   Card* current = deck->top;
@@ -106,8 +131,51 @@ Deck splitDeck(Deck *deck, int size) {
       total++;
     }
   }
-
   return resultDeck;
+}
+
+Deck randomShuffle(Deck* deck) {
+  Deck tempDeck = createDeck();
+
+
+  while (deck->size > 0) {
+    addCardTop(removeCardFromDeck(deck), &tempDeck);
+  }
+
+
+  for (int i = 0; i < 52; i++) {
+    Card* card = removeCardFromDeck(&tempDeck);
+    if (deck->size == 0) {
+      addCardTop(card, deck);
+      continue;
+    }
+
+    int position = rand() % (deck->size + 1);  //
+
+
+    if (position == 0) {
+      addCardTop(card, deck);
+    }
+
+    else if (position == deck->size) {
+      addCardBottom(card, deck);
+    }
+
+    else {
+      Card* current = deck->top;
+      for (int j = 0; j < position - 1; j++) {
+        current = current->next;
+      }
+
+      card->next = current->next;
+      card->previous = current;
+      current->next->previous = card;
+      current->next = card;
+      deck->size++;
+    }
+  }
+
+  return *deck;
 }
 
 

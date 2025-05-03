@@ -57,11 +57,18 @@ int main(void) {
             }
 
 
-            // SW: Show deck/columns
+           //SL: Splitdeck and assemble again
         } else if (strncmp(input, "SL", 2) == 0) {
             int splitnumber = atoi(input + 3);
             setDeck(splitDeck(getDeck(), splitnumber));
             strcpy(message, "Splitted and assembled deck succesfully");
+
+            // RD: Randomly takes one card
+        } else if (strncmp(input, "RD", 2) == 0) {
+            setDeck(randomShuffle(getDeck()));
+            strcpy(message, "Randomized deck succesfully");
+
+            // SW: Show deck/columns
         } else if (strcmp(input, "SW") == 0) {
             //printDeck(getDeck());
 
