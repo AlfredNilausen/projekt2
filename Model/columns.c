@@ -67,17 +67,17 @@ void addCardColumn(Card* card, Column* column, int visible) {
 }
 Card* removeCardColumn(Column* column) {
     if (column->size == 1) {
-        Card removedtopofcolumn = *column->top;
+        Card removedcard = *column->bottom;
         column->top = NULL;
         column->bottom = NULL;
         column->size = 0;
-        return &removedtopofcolumn;
+        return &removedcard;
     } else {
-        Card removedtopofcolumn = *column->top;
-        column->top = removedtopofcolumn.previous;
+        Card removedcard = *column->bottom;
+        column->bottom = removedcard.previous;
         column->size--;
-        column->top->next = NULL;
-        return &removedtopofcolumn;
+        column->bottom->next = NULL;
+        return &removedcard;
     }
 }
 
