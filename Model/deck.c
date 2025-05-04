@@ -113,10 +113,13 @@ Card* removeCardFromDeck(Deck* deck) {
 
 
 Deck splitDeck(Deck *deck, int size) {
+  if (size == 0) {
+     size = rand() % (51) + 1;
+  }
+  printf("%d", size);
   Deck newDeck = createDeck();
   Deck resultDeck = createDeck();
   int total = 0;
-  if (size > deck->size || size < 0) return *deck;
   for (int i = 0; i < size; i++) {
     addCardBottom(removeCardFromDeck(deck), &newDeck);
   }

@@ -59,9 +59,13 @@ int main(void) {
 
            //SL: Splitdeck and assemble again
         } else if (strncmp(input, "SL", 2) == 0) {
-            int splitnumber = atoi(input + 3);
-            setDeck(splitDeck(getDeck(), splitnumber));
-            strcpy(message, "Splitted and assembled deck succesfully");
+            int SLnumber = atoi(input + 3);
+            printf("%d", SLnumber);
+            if (getDeck()->size == 52 && SLnumber < 52 && SLnumber > 0) {
+                int splitnumber = atoi(input + 3);
+                setDeck(splitDeck(getDeck(), splitnumber));
+                strcpy(message, "Splitted and assembled deck succesfully");
+            }
 
             // SD: Saves the deck to a file
         } else if (strncmp(input, "SD", 2) == 0) {
