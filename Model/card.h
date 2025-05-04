@@ -15,10 +15,6 @@ typedef struct Card {
 } Card;
 // Function declarations
 Card* createCard(char rank, char suit, int visible);
-Card* createDeckShuffled();
-
-void freeDeck(Card* firstCard);
-
 
 
 

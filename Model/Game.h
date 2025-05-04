@@ -12,7 +12,6 @@ Foundation* getFoundation(int i);
 void setColumn(int i, Column* column);
 void createColumns();
 Deck *getDeck();
-int isColumnthere();
 int biggestColumn();
 void setDeck(Deck);
 #endif //GAME_H

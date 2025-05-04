@@ -7,7 +7,5 @@
 
 #include "../Model/deck.h"
 
-void printLD(Deck* deck);
-void printSW(Deck* deck);
 void printBoard();
 #endif //BOARDVIEW_H

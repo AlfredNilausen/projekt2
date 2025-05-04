@@ -56,14 +56,6 @@ int LD(const char* filename) {
     }
 }
 
-char* keyboardInput() {
-    char label[10];
-    scanf("%s", label);
-    char* output;
-    output = &label[0];
-    return output;
-}
-
 void errorcode(int code) {
     if (code == -1) {
         printf("\nFile cannot be found");
@@ -76,7 +68,6 @@ void errorcode(int code) {
     }
 
 }
-
 int saveDeckToFile(Deck* deck, const char* filename) {
     if (strlen(filename) == 0) {
         filename = "cards.txt";

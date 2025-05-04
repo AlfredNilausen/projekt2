@@ -116,7 +116,7 @@ Deck splitDeck(Deck *deck, int size) {
   if (size == 0) {
      size = rand() % (51) + 1;
   }
-  printf("%d", size);
+
   Deck newDeck = createDeck();
   Deck resultDeck = createDeck();
   int total = 0;
@@ -210,4 +210,13 @@ void printDeck(Deck* deck) {
     printf("%c of %c\n", current->rank, current->suit);
     current = current->next;
   }
+}
+void freeDeck(Deck* deck) {
+  Card* current = deck->top;
+  while (current != NULL) {
+    Card* nextCard = current->next;
+    free(current);
+    current = nextCard;
+  }
+  free(deck);
 }
