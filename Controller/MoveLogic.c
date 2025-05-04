@@ -28,6 +28,7 @@ int handleMoveCommand(const char* command) {
     char fromType = toupper(from[0]);
     char toType = toupper(to[0]);
 
+
     // COLUMN TO FOUNDATION
 
     if (fromType == 'C' && toType == 'F') {
@@ -45,24 +46,14 @@ int handleMoveCommand(const char* command) {
         int fr = topF ? rankToValue(topF->rank) : 0;
 
         if ((toF->size == 0 && sr == 1) || (topF && sr == fr + 1 && card->suit == toF->suit)) {
-
+            addCardFoundation(card, toF);
             fromCol->bottom = card->previous;
             if (fromCol->bottom) fromCol->bottom->next = NULL;
-            else fromCol->top = NULL;
-
-            card->previous = NULL;
-            card->next = NULL;
-
             fromCol->size--;
             if (fromCol->bottom && fromCol->bottom->visible < 0)
                 fromCol->bottom->visible = 1;
-
-            // Add to foundation
-            addCardFoundation(card, toF);
-
             return 1;
         }
-
         return 0;
     }
     // FOUNDATION TO COLUMN
@@ -87,7 +78,7 @@ int handleMoveCommand(const char* command) {
         }
         return 0;
     }
-    //COLUMN TO COLUMN
+
     if (fromType == 'C' && toType == 'C') {
         int fromColIndex = from[1] - '1';
         int toColIndex = to[1] - '1';
@@ -127,7 +118,6 @@ int handleMoveCommand(const char* command) {
         int dr = dest ? rankToValue(dest->rank) : -1;
 
         if (!dest || sr == dr - 1) {
-
             // Detach
             if (movingCard == fromCol->top) {
                 fromCol->top = NULL;
