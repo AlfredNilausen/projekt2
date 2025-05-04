@@ -118,10 +118,10 @@ Deck splitDeck(Deck *deck, int size) {
   int total = 0;
   if (size > deck->size || size < 0) return *deck;
   for (int i = 0; i < size; i++) {
-    addCardTop(removeCardFromDeck(deck), &newDeck);
+    addCardBottom(removeCardFromDeck(deck), &newDeck);
   }
   
-  while (deck->size > 0 || newDeck.size > 0) {
+  while (deck->size > 0 && newDeck.size > 0) {
     if (deck->size > 0) {
       addCardTop(removeCardFromDeck(deck), &resultDeck);
       total++;
@@ -130,6 +130,15 @@ Deck splitDeck(Deck *deck, int size) {
       addCardTop(removeCardFromDeck(&newDeck), &resultDeck);
       total++;
     }
+  }
+  Deck* leftDeck;
+  if (deck->size == 0) {
+    leftDeck = &newDeck;
+  } else {
+    leftDeck = deck;
+  }
+  while (resultDeck.size != 52) {
+    addCardBottom(removeCardFromDeck(leftDeck), &resultDeck);
   }
   return resultDeck;
 }

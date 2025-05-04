@@ -78,9 +78,11 @@ int main(void) {
 
 
             // RD: Randomly takes one card
-        } else if (strncmp(input, "RD", 2) == 0) {
-            setDeck(randomShuffle(getDeck()));
-            strcpy(message, "Randomized deck succesfully");
+        } else if (strncmp(input, "SR", 2) == 0) {
+            if (getDeck()->size == 52) {
+                setDeck(randomShuffle(getDeck()));
+                strcpy(message, "Randomized deck succesfully");
+            }
 
             // SW: Show deck/columns
         } else if (strcmp(input, "SW") == 0) {
