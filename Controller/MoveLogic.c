@@ -1,8 +1,8 @@
-// MoveLogic.c
 #include "MoveLogic.h"
 #include "../Model/card.h"
 #include "../Model/columns.h"
 #include "../Model/Game.h"
+#include "../Model/foundation.h"
 #include <string.h>
 #include <ctype.h>
 
@@ -16,90 +16,137 @@ int rankToValue(char rank) {
     return -1;
 }
 
-
-
 int handleMoveCommand(const char* command) {
     char from[10], to[10];
     const char* arrow = strstr(command, "->");
     if (!arrow) return 0;
 
-    size_t len = arrow - command;
-    strncpy(from, command, len);
-    from[len] = '\0';
+    strncpy(from, command, arrow - command);
+    from[arrow - command] = '\0';
     strcpy(to, arrow + 2);
 
-    if (toupper(from[0]) != 'C' || toupper(to[0]) != 'C') return 0;
+    char fromType = toupper(from[0]);
+    char toType = toupper(to[0]);
 
-    int fromColIndex = from[1] - '1';
-    int toColIndex = to[1] - '1';
-    Column* fromCol = getColumn(fromColIndex);
-    Column* toCol = getColumn(toColIndex);
-    if (!fromCol || !toCol) return 0;
+    // COLUMN TO FOUNDATION
 
-    Card* movingCard = NULL;
+    if (fromType == 'C' && toType == 'F') {
+        int fromColIndex = from[1] - '1';
+        int toFIndex = to[1] - '1';
+        Column* fromCol = getColumn(fromColIndex);
+        Foundation* toF = getFoundation(toFIndex);
+        if (!fromCol || !toF) return 0;
 
-    if (strchr(from, ':')) {
-        char rank = from[3];
-        char suit = from[4];
-        Card* current = fromCol->top;
-        while (current != NULL) {
-            if (current->rank == rank && current->suit == suit && current->visible) {
-                movingCard = current;
-                break;
+        Card* card = fromCol->bottom;
+        if (!card || !card->visible) return 0;
+
+        int sr = rankToValue(card->rank);
+        Card* topF = getTopCardFoundation(toF);
+        int fr = topF ? rankToValue(topF->rank) : 0;
+
+        if ((toF->size == 0 && sr == 1) || (topF && sr == fr + 1 && card->suit == toF->suit)) {
+            addCardFoundation(card, toF);
+            fromCol->bottom = card->previous;
+            if (fromCol->bottom) fromCol->bottom->next = NULL;
+            fromCol->size--;
+            if (fromCol->bottom && fromCol->bottom->visible < 0)
+                fromCol->bottom->visible = 1;
+            return 1;
+        }
+        return 0;
+    }
+    // FOUNDATION TO COLUMN
+    if (fromType == 'F' && toType == 'C') {
+        int fromFIndex = from[1] - '1';
+        int toColIndex = to[1] - '1';
+        Foundation* fromF = getFoundation(fromFIndex);
+        Column* toCol = getColumn(toColIndex);
+        if (!fromF || !toCol) return 0;
+
+        Card* card = getTopCardFoundation(fromF);
+        if (!card) return 0;
+
+        Card* dest = toCol->bottom;
+        int sr = rankToValue(card->rank);
+        int dr = dest ? rankToValue(dest->rank) : -1;
+
+        if (!dest || sr == dr - 1) {
+            removeCardFoundation(fromF);
+            addCardColumn(card, toCol, 1);
+            return 1;
+        }
+        return 0;
+    }
+    //COLUMN TO COLUMN
+    if (fromType == 'C' && toType == 'C') {
+        int fromColIndex = from[1] - '1';
+        int toColIndex = to[1] - '1';
+        Column* fromCol = getColumn(fromColIndex);
+        Column* toCol = getColumn(toColIndex);
+        if (!fromCol || !toCol) return 0;
+
+        Card* movingCard = NULL;
+
+        if (strchr(from, ':')) {
+            char rank = from[3];
+            char suit = from[4];
+            Card* current = fromCol->top;
+            while (current) {
+                if (current->rank == rank && current->suit == suit && current->visible) {
+                    movingCard = current;
+                    break;
+                }
+                current = current->next;
             }
-            current = current->next;
+        } else {
+            movingCard = fromCol->bottom;
+            if (!movingCard || !movingCard->visible) return 0;
         }
-    } else {
-        movingCard = fromCol->bottom;
-        if (!movingCard || !movingCard->visible) return 0;
-    }
 
-    if (!movingCard) return 0;
+        if (!movingCard) return 0;
 
-    int moveCount = 0;
-    Card* temp = movingCard;
-    while (temp != NULL) {
-        moveCount++;
-        temp = temp->next;
-    }
+        int moveCount = 0;
+        Card* temp = movingCard;
+        while (temp) {
+            moveCount++;
+            temp = temp->next;
+        }
 
-    Card* dest = toCol->bottom;
-    int sr = rankToValue(movingCard->rank);
-    int dr = dest ? rankToValue(dest->rank) : -1;
-    int valid = (!dest) || ((sr == dr - 1));
+        Card* dest = toCol->bottom;
+        int sr = rankToValue(movingCard->rank);
+        int dr = dest ? rankToValue(dest->rank) : -1;
 
-    if (!valid) return 0;
+        if (!dest || sr == dr - 1) {
 
+            // Detach
+            if (movingCard == fromCol->top) {
+                fromCol->top = NULL;
+                fromCol->bottom = NULL;
+                fromCol->size = 0;
+            } else {
+                movingCard->previous->next = NULL;
+                fromCol->bottom = movingCard->previous;
+                fromCol->size -= moveCount;
+            }
+            if (fromCol->bottom && fromCol->bottom->visible < 0)
+                fromCol->bottom->visible = 1;
 
-    if (movingCard == fromCol->top) {
-        fromCol->top = NULL;
-        fromCol->bottom = NULL;
-        fromCol->size = 0;
-    } else {
-        if (movingCard->previous) {
-            movingCard->previous->next = NULL;
-            fromCol->bottom = movingCard->previous;
-            fromCol->size -= moveCount;
+            // Attach
+            if (toCol->size == 0) {
+                toCol->top = movingCard;
+                toCol->bottom = movingCard;
+                movingCard->previous = NULL;
+            } else {
+                toCol->bottom->next = movingCard;
+                movingCard->previous = toCol->bottom;
+            }
+
+            while (movingCard->next) movingCard = movingCard->next;
+            toCol->bottom = movingCard;
+            toCol->size += moveCount;
+            return 1;
         }
     }
-    if (fromCol->bottom && fromCol->bottom->visible < 0) {
-        fromCol->bottom->visible = 1;
-    }
 
-
-    if (toCol->size == 0) {
-        toCol->top = movingCard;
-        toCol->bottom = movingCard;
-        movingCard->previous = NULL;
-    } else {
-        toCol->bottom->next = movingCard;
-        movingCard->previous = toCol->bottom;
-
-    }
-
-    while (movingCard->next) movingCard = movingCard->next;
-    toCol->bottom = movingCard;
-    toCol->size += moveCount;
-
-    return 1;
+    return 0;
 }
