@@ -8,7 +8,6 @@
 #define MAX_INPUT 100
 
 int LD(const char* filename);
-char* keyboardInput();
 void errorcode(int);
 int saveDeckToFile(Deck* deck, const char* filename);
 

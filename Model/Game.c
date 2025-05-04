@@ -28,15 +28,6 @@ void createColumns() {
         columns[i] = *createColumn();
     }
 }
-int isColumnthere() {
-    int tjek = 0;
-    for (int i = 0; i < 7; i++) {
-        if (columns[i].size != 0) {
-            tjek = 1;
-        }
-    }
-    return tjek;
-}
 void setColumn(int i, Column column) {
     columns[i] = column;
 }
