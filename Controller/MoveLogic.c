@@ -45,14 +45,24 @@ int handleMoveCommand(const char* command) {
         int fr = topF ? rankToValue(topF->rank) : 0;
 
         if ((toF->size == 0 && sr == 1) || (topF && sr == fr + 1 && card->suit == toF->suit)) {
-            addCardFoundation(card, toF);
+
             fromCol->bottom = card->previous;
             if (fromCol->bottom) fromCol->bottom->next = NULL;
+            else fromCol->top = NULL;
+
+            card->previous = NULL;
+            card->next = NULL;
+
             fromCol->size--;
             if (fromCol->bottom && fromCol->bottom->visible < 0)
                 fromCol->bottom->visible = 1;
+
+            // Add to foundation
+            addCardFoundation(card, toF);
+
             return 1;
         }
+
         return 0;
     }
     // FOUNDATION TO COLUMN
