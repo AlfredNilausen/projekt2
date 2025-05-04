@@ -27,23 +27,25 @@ Foundation* createFoundation(Foundation* foundation) {
 }
 
 void addCardFoundation(Card* card, Foundation* foundation) {
-    Card *newCard = createCard(card->rank, card->suit, 1);
+
+    card->next = NULL;
+    card->previous = NULL;
+    card->visible =1;
+
     if (foundation->size == 0) {
-        foundation->top = newCard;
-        foundation->bottom = newCard;
-        foundation->size = 1;
-        foundation->suit = card->suit;
-        newCard->next = NULL;
-        newCard->previous = NULL;
+        foundation->top = foundation->bottom = card;
+
+
     } else {
-        newCard->next = foundation->top;
-        foundation->top->previous = newCard;
-        foundation->top = newCard;
-        newCard->previous = NULL;
+        card->next = foundation->top;
+        foundation->top->previous = card;
+        foundation->top = card;
+    }
+
         foundation->suit = card->suit;
         foundation->size++;
     }
-}
+
 
 Card* getTopCardFoundation(Foundation* foundation) {
     return foundation->top;
@@ -54,4 +56,20 @@ int getSize(Foundation* foundation) {
 
 Card* removeCardFoundation(Foundation* foundation) {
 
+    if (foundation->size == 0 || foundation->top == NULL) {
+        return NULL;
+    }
+    Card* removed = foundation->top;
+    foundation->top = removed->next;
+
+    if (foundation->top) {
+        foundation->top->previous = NULL;
+    } else {
+        foundation->bottom = NULL;
+    }
+    removed->next = NULL;
+    removed->previous = NULL;
+    foundation->size--;
+
+    return removed;
 }
