@@ -50,34 +50,42 @@ int main(void) {
         if (strncmp(input, "LD", 2) == 0) {
             int tal = LD(input + 3);
             if (tal == 52) {
-                strcpy(message, "Loading deck completed");
+                strcpy(message, "OK");
             } else {
-                errorcode(tal);
-                strcpy(message, "Error loading deck");
+                char* error = errorcode(tal);
+                strcpy(message, error);
             }
 
 
            //SL: Splitdeck and assemble again
         } else if (strncmp(input, "SL", 2) == 0) {
             int SLnumber = atoi(input + 3);
-            printf("%d", SLnumber);
-            if (getDeck()->size == 52 && SLnumber < 52 && SLnumber > 0) {
-                int splitnumber = atoi(input + 3);
-                setDeck(splitDeck(getDeck(), splitnumber));
-                strcpy(message, "Splitted and assembled deck succesfully");
-            }
+                if (getDeck()->size == 52) {
+                    if (strlen(input) != 2) {
+                        if (SLnumber < 52 && SLnumber > 0) {
+                            setDeck(splitDeck(getDeck(), SLnumber));
+                            strcpy(message, "OK");
+                        } else
+                            strcpy(message, "Error: input not between 1 and 52");
+                    } else {
+                        setDeck(splitDeck(getDeck(), SLnumber));
+                        strcpy(message, "OK");
+                    }
+                } else {
+                    strcpy(message, "Error no deck loaded");
+                }
 
             // SD: Saves the deck to a file
         } else if (strncmp(input, "SD", 2) == 0) {
             if (getDeck()->size == 52) {
                 int check = saveDeckToFile(getDeck(), input + 3);
                 if (check == 0) {
-                    strcpy(message, "Deck succesfully saved");
+                    strcpy(message, "OK");
                 } else {
-                    strcpy(message, "Something went wrong saving deck");
+                    strcpy(message, "Error: Something went wrong saving deck");
                 }
             } else {
-                strcpy(message, "No deck loaded");
+                strcpy(message, "Error: No deck loaded");
             }
 
 
@@ -85,27 +93,21 @@ int main(void) {
         } else if (strncmp(input, "SR", 2) == 0) {
             if (getDeck()->size == 52) {
                 setDeck(randomShuffle(getDeck()));
-                strcpy(message, "Randomized deck succesfully");
+                strcpy(message, "OK");
+            } else {
+                strcpy(message, "Error: No deck loaded");
             }
 
             // SW: Show deck/columns
         } else if (strcmp(input, "SW") == 0) {
             //printDeck(getDeck());
-
             if (getDeck() && getDeck()->size == 52) {
                 dealcardstocolumn(getDeck(), 1);
                 printf("\n");
                 printBoard();
-                /*
-                for (int i = 0; i < 7; i++) {
-                    printf("Column %d:\n", i + 1);
-                    printColumn(getColumn(i));
-                    printf("\n");
-                }
-                */
-                strcpy(message, "Deck printed successfully");
+                strcpy(message, "OK");
             } else {
-                strcpy(message, "No deck loaded");
+                strcpy(message, "Error: No deck loaded");
             }
 
         // P: Start game

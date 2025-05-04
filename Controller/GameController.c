@@ -56,15 +56,15 @@ int LD(const char* filename) {
     }
 }
 
-void errorcode(int code) {
+char* errorcode(int code) {
     if (code == -1) {
-        printf("\nFile cannot be found");
+        return "Error: File cannot be found";
     } else if (code == -2) {
-        printf("\nDeck contains a fake card");
+        return "Error: Deck contains a fake card";
     } else if (code == -3) {
-        printf("\nDeck contains a duplicate card");
+        return "Error: Deck contains a duplicate card";
     } else if (code == -4) {
-        printf("\nDeck doesnt contain enough cards");
+        return "Error: Deck doesnt contain enough cards";
     }
 
 }

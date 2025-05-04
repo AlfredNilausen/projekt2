@@ -8,7 +8,7 @@
 #define MAX_INPUT 100
 
 int LD(const char* filename);
-void errorcode(int);
+char* errorcode(int);
 int saveDeckToFile(Deck* deck, const char* filename);
 
 #endif //GAMECONTROLLER_H
