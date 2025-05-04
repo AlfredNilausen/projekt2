@@ -10,6 +10,7 @@
 int LD(const char* filename);
 char* keyboardInput();
 void errorcode(int);
+int saveDeckToFile(Deck* deck, const char* filename);
 
 #endif //GAMECONTROLLER_H
 

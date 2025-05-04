@@ -14,15 +14,16 @@
 
 
 int LD(const char* filename) {
-
-    char fullpath[512];  // Ensure this is big enough
-    snprintf(fullpath, sizeof(fullpath), "../Model/%s",  filename);
-    int cards = 0;
-    int letters = 0;
+    if (strlen(filename) == 0) {
+        filename = "filename.txt"; //default unshuffled deck
+    }
+    char fullpath[512];
+    snprintf(fullpath, sizeof(fullpath), "../Model/%s",  filename); //getting the path to the deck
+    int cards = 0; //counter to make sure we have 52 cards
     Deck tempdeck = createDeck();
     FILE* file = fopen(fullpath, "r");
     if (!file) {
-        return -1;
+        return -1; //errorcode for not opening the file
     }
     char data[10];
     while (fgets(data, 10, file) != NULL) {
@@ -74,5 +75,26 @@ void errorcode(int code) {
         printf("\nDeck doesnt contain enough cards");
     }
 
+}
+
+int saveDeckToFile(Deck* deck, const char* filename) {
+    if (strlen(filename) == 0) {
+        filename = "cards.txt";
+    }
+    char fullpath[512];
+    snprintf(fullpath, sizeof(fullpath), "../Model/%s",  filename);
+    FILE* file = fopen(fullpath, "w");
+    if (!file) {
+        printf("Error: Could not open file '%s' for writing.\n", filename);
+        return -1;
+    }
+    Card* current = deck->top;
+    while (current != NULL) {
+        fprintf(file, "%c%c\n", current->rank, current->suit);
+        current = current->next;
+    }
+
+    fclose(file);
+    return 0;
 }
 

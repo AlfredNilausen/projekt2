@@ -63,6 +63,20 @@ int main(void) {
             setDeck(splitDeck(getDeck(), splitnumber));
             strcpy(message, "Splitted and assembled deck succesfully");
 
+            // SD: Saves the deck to a file
+        } else if (strncmp(input, "SD", 2) == 0) {
+            if (getDeck()->size == 52) {
+                int check = saveDeckToFile(getDeck(), input + 3);
+                if (check == 0) {
+                    strcpy(message, "Deck succesfully saved");
+                } else {
+                    strcpy(message, "Something went wrong saving deck");
+                }
+            } else {
+                strcpy(message, "No deck loaded");
+            }
+
+
             // RD: Randomly takes one card
         } else if (strncmp(input, "RD", 2) == 0) {
             setDeck(randomShuffle(getDeck()));
