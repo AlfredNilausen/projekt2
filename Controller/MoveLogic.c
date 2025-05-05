@@ -25,6 +25,10 @@ int handleMoveCommand(const char* command) {
     strncpy(from, command, arrow - command);
     from[arrow - command] = '\0';
     strcpy(to, arrow + 2);
+    if (strlen(from) < 2 || strlen(to) < 2 || !isdigit(from[1]) || !isdigit(to[1])) {
+        return 0;
+    }
+
 
     char fromType = toupper(from[0]);
     char toType = toupper(to[0]);
