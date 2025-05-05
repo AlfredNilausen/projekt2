@@ -1,3 +1,4 @@
+// MoveLogic.c
 #include "MoveLogic.h"
 #include "../Model/card.h"
 #include "../Model/columns.h"
@@ -28,9 +29,6 @@ int handleMoveCommand(const char* command) {
     char fromType = toupper(from[0]);
     char toType = toupper(to[0]);
 
-
-    // COLUMN TO FOUNDATION
-
     if (fromType == 'C' && toType == 'F') {
         int fromColIndex = from[1] - '1';
         int toFIndex = to[1] - '1';
@@ -46,17 +44,16 @@ int handleMoveCommand(const char* command) {
         int fr = topF ? rankToValue(topF->rank) : 0;
 
         if ((toF->size == 0 && sr == 1) || (topF && sr == fr + 1 && card->suit == toF->suit)) {
+            card = removeCardColumn(fromCol); // safely detach
             addCardFoundation(card, toF);
-            fromCol->bottom = card->previous;
-            if (fromCol->bottom) fromCol->bottom->next = NULL;
-            fromCol->size--;
             if (fromCol->bottom && fromCol->bottom->visible < 0)
                 fromCol->bottom->visible = 1;
             return 1;
         }
+
         return 0;
     }
-    // FOUNDATION TO COLUMN
+
     if (fromType == 'F' && toType == 'C') {
         int fromFIndex = from[1] - '1';
         int toColIndex = to[1] - '1';
@@ -73,7 +70,7 @@ int handleMoveCommand(const char* command) {
 
         if (!dest || sr == dr - 1) {
             removeCardFoundation(fromF);
-            addCardColumn(card, toCol, 1);
+            attachCardColumn(card, toCol);
             return 1;
         }
         return 0;
@@ -118,7 +115,6 @@ int handleMoveCommand(const char* command) {
         int dr = dest ? rankToValue(dest->rank) : -1;
 
         if (!dest || sr == dr - 1) {
-            // Detach
             if (movingCard == fromCol->top) {
                 fromCol->top = NULL;
                 fromCol->bottom = NULL;
@@ -131,7 +127,6 @@ int handleMoveCommand(const char* command) {
             if (fromCol->bottom && fromCol->bottom->visible < 0)
                 fromCol->bottom->visible = 1;
 
-            // Attach
             if (toCol->size == 0) {
                 toCol->top = movingCard;
                 toCol->bottom = movingCard;

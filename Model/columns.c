@@ -48,38 +48,57 @@ Column* createColumn() {
     return newColumn;
 }
 
+
+
+void attachCardColumn(Card* card, Column* column) {
+    card->visible = 1;
+    card->next = NULL;
+    card->previous = NULL;
+
+    if (column->size == 0) {
+        column->top = column->bottom = card;
+    } else {
+        card->previous = column->bottom;
+        column->bottom->next = card;
+        column->bottom = card;
+    }
+    column->size++;
+}
+
 void addCardColumn(Card* card, Column* column, int visible) {
     Card *newCard = createCard(card->rank, card->suit, visible);
+
     if (column->size == 0) {
         column->top = newCard;
         column->bottom = newCard;
-        column->size = 1;
-        newCard->next = NULL;
-        newCard->previous = NULL;
     } else {
         newCard->previous = column->bottom;
         column->bottom->next = newCard;
         column->bottom = newCard;
-        newCard->next = NULL;
-        column->size++;
-
     }
+    column->size++;
 }
+
 Card* removeCardColumn(Column* column) {
+    if (!column || column->size == 0 || !column->bottom) return NULL;
+
+    Card* removed = column->bottom;
+
     if (column->size == 1) {
-        Card removedcard = *column->bottom;
         column->top = NULL;
         column->bottom = NULL;
-        column->size = 0;
-        return &removedcard;
     } else {
-        Card removedcard = *column->bottom;
-        column->bottom = removedcard.previous;
-        column->size--;
+        column->bottom = removed->previous;
         column->bottom->next = NULL;
-        return &removedcard;
     }
+
+    removed->previous = NULL;
+    removed->next = NULL;
+    column->size--;
+
+    return removed;  // Return the actual detached card pointer
 }
+
 
 int dealcardstocolumn(Deck* deck, int visible) {
     freeColumns();
@@ -98,15 +117,16 @@ int dealcardstocolumn(Deck* deck, int visible) {
     return total;
 }
 Card* getCardCol(int index, Column* column) {
-    Card *current = column->top;
+    if (!column || !column->top) return NULL;
+
+    Card* current = column->top;
     for (int i = 0; i < index; i++) {
+        if (!current) return NULL;
         current = current->next;
-        if (current == NULL) {
-            return current;
-        }
     }
     return current;
 }
+
 
 int playdealcard(Deck* deck) {
     createColumns();
