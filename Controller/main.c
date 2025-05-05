@@ -122,6 +122,9 @@ int main(void) {
 
                 // -------- PLAY PHASE --------
                 while (playing) {
+                    printf("\nLAST Command: %s\n", lastCommand);
+                    printf("Message: %s\n", message);
+                    printf("INPUT > ");
                     fgets(input, sizeof(input), stdin);
                     input[strcspn(input, "\n")] = 0;
 

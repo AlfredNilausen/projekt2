@@ -11,6 +11,7 @@ Column* getColumn(int i);
 Foundation* getFoundation(int i);
 void setColumn(int i, Column* column);
 void createColumns();
+void createFoundations();
 Deck *getDeck();
 int biggestColumn();
 void setDeck(Deck);

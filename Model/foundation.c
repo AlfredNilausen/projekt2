@@ -26,6 +26,27 @@ Foundation* createFoundation(Foundation* foundation) {
     return newFoundation;
 }
 
+void freeFoundations() {
+    for (int i = 0; i < 4; i++) {
+        Foundation* current = getFoundation(i);
+        if (current) {
+            Card* currentCard = current->top;
+            while (currentCard != NULL) {
+                Card* next = currentCard->next;
+                free(currentCard);
+                currentCard = next;
+            }
+            current->top = NULL;
+            current->bottom = NULL;
+            current->size = 0;
+            current->suit = ' ';
+        }
+    }
+}
+
+
+
+
 void addCardFoundation(Card* card, Foundation* foundation) {
 
     card->next = NULL;

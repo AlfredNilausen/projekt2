@@ -16,6 +16,7 @@ typedef struct Foundation {
 } Foundation;
 
 Foundation* createFoundation();
+void freeFoundations();
 Card* getTopCardFoundation(Foundation* foundation);
 int getSize(Foundation* foundation);
 void addCardFoundation(Card* card, Foundation* foundation);
