@@ -9,6 +9,7 @@
 
 int LD(const char* filename);
 char* errorcode(int);
+char* errorMove(int code);
 int saveDeckToFile(Deck* deck, const char* filename);
 
 #endif //GAMECONTROLLER_H

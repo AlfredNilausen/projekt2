@@ -89,3 +89,26 @@ int saveDeckToFile(Deck* deck, const char* filename) {
     return 0;
 }
 
+char* errorMove(int code) {
+    if (code == 0) {
+        return "Error: Not valid foundation or column";
+    } else if (code == -1) {
+        return "Error: No card in column";
+    } else if (code == -2) {
+        return "Error: Not valid move";
+    } else if (code == -3) {
+        return "Error: Not visible";
+    } else if (code == -4) {
+        return "Error: Not valid card";
+    } else if (code == -5) {
+        return "Error: Not valid input";
+    } else if (code == -6) {
+        return "Error: Not visible";
+    } else if (code == -7) {
+        return "Error: Not legal move";
+    } else if (code == -8) {
+        return "Error: No card in foundation";
+    }
+
+}
+

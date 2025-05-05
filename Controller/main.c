@@ -127,7 +127,7 @@ int main(void) {
                     printf("INPUT > ");
                     fgets(input, sizeof(input), stdin);
                     input[strcspn(input, "\n")] = 0;
-
+                    strcpy(lastCommand, input);
 
                     // QQ: Quit entire program
                     if (strcmp(input, "QQ") == 0) {
@@ -152,12 +152,13 @@ int main(void) {
                     }
                     else if (strchr(input, '-') != NULL) {
                         int success = handleMoveCommand(input);
-                        if (success) {
+                        if (success > 0) {
                             printf("Move is valid\n");
                             printBoard();
+                            strcpy(message, "OK");
                         }
                         else {
-                            printf("Invalid move\n");
+                            strcpy(message, errorMove(success));
                         }
                     }
 
