@@ -89,7 +89,7 @@ int main(void) {
             }
 
 
-            // RD: Randomly takes one card
+            // SR: Randomly takes one card
         } else if (strncmp(input, "SR", 2) == 0) {
             if (getDeck()->size == 52) {
                 setDeck(randomShuffle(getDeck()));
