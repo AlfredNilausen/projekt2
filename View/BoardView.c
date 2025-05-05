@@ -19,7 +19,7 @@ void printBoard() {
         total = start;
     }
     printf("\nC1\tC2\tC3\tC4\tC5\tC6\tC7\n\n");
-    for (int j = 0; j < biggest; j++) {
+    for (int j = 0; j < total; j++) {
         for (int i = 0; i < 7; i++) {
             Column *printColumn = getColumn(i);
             Card *printCard = getCardCol(j, printColumn);

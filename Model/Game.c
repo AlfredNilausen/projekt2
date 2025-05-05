@@ -23,6 +23,11 @@ Column* getColumn(int i) {
 Foundation* getFoundation(int i) {
     return &foundations[i];
 }
+void createFoundations() {
+    for (int i = 0; i < 4; i++) {
+        foundations[i] = *createFoundation();
+    }
+}
 void createColumns() {
     for (int i = 0; i < 7; i++) {
         columns[i] = *createColumn();

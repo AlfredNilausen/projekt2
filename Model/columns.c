@@ -101,6 +101,8 @@ Card* removeCardColumn(Column* column) {
 
 
 int dealcardstocolumn(Deck* deck, int visible) {
+    freeFoundations();
+    createFoundations();
     freeColumns();
     createColumns();
     Card* current = getTopCard(deck);
@@ -118,7 +120,6 @@ int dealcardstocolumn(Deck* deck, int visible) {
 }
 Card* getCardCol(int index, Column* column) {
     if (!column || !column->top) return NULL;
-
     Card* current = column->top;
     for (int i = 0; i < index; i++) {
         if (!current) return NULL;
