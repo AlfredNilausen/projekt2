@@ -12,4 +12,4 @@ add_executable(projekt2 Controller/main.c Model/card.c Model/columns.c Model/dec
         Controller/MoveLogic.c
         Controller/MoveLogic.h)
 
-add_executable(Test test/test_deck.c Model/card.c Model/columns.c Model/deck.c)
+add_executable(Test Model/card.c Model/columns.c Model/deck.c)
