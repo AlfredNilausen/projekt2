@@ -6,6 +6,8 @@
 #include <time.h>
 #include "../Model/deck.h"
 
+#include "Game.h"
+
 int addCardTop(Card* card, Deck* deck) {
 
   Card* current = deck->top;
@@ -211,12 +213,19 @@ void printDeck(Deck* deck) {
     current = current->next;
   }
 }
-void freeDeck(Deck* deck) {
-  Card* current = deck->top;
-  while (current != NULL) {
-    Card* nextCard = current->next;
-    free(current);
-    current = nextCard;
-  }
-  free(deck);
-}
+void freeDeck() {
+    Deck* current = getDeck();
+
+    if (current) {
+      Card* currentCard = current->top;
+      while (currentCard != NULL) {
+        Card* next = currentCard->next;
+        free(currentCard);
+        currentCard = next;
+      }
+      current->top = NULL;
+      current->bottom = NULL;
+      current->size = 0;
+    }
+    }
+

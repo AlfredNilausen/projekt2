@@ -20,6 +20,6 @@ Card* removeCardFromDeck(Deck* deck);
 Card* getTopCard(Deck* deck);
 Deck createDeck();
 void printDeck(Deck* deck);
-void freeDeck(Deck* deck);
+void freeDeck();
 
 #endif

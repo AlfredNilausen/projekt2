@@ -15,12 +15,13 @@
 
 int LD(const char* filename) {
     if (strlen(filename) == 0) {
-        filename = "filename.txt"; //default unshuffled deck
+        filename = "cards.txt"; //default unshuffled deck
     }
     char fullpath[512];
-    snprintf(fullpath, sizeof(fullpath), "../Model/%s",  filename); //getting the path to the deck
+    snprintf(fullpath, sizeof(fullpath), "../Decks/%s",  filename); //getting the path to the deck
     int cards = 0; //counter to make sure we have 52 cards
-    Deck tempdeck = createDeck();
+    Deck* tempdeck = getDeck();
+    freeDeck();
     FILE* file = fopen(fullpath, "r");
     if (!file) {
         return -1; //errorcode for not opening the file
@@ -32,7 +33,7 @@ int LD(const char* filename) {
         if ((rank >= '2' && rank <= '9') || rank == 'A' || rank == 'T' || rank == 'J' || rank == 'Q' || rank == 'K') {
             if (suit == 'H' || suit == 'D' || suit == 'C' || suit == 'S') {
                 Card *newcard = createCard(rank, suit,-1);
-                int check = addCardBottom(newcard, &tempdeck);
+                int check = addCardBottom(newcard, tempdeck);
                 if (check == -1) {
                     return -3;
                 }
@@ -47,8 +48,8 @@ int LD(const char* filename) {
     }
     fclose(file);
     if (cards == 52) {
-        setDeck(tempdeck);
-        dealcardstocolumn(&tempdeck, -1);
+        setDeck(*tempdeck);
+        dealcardstocolumn(tempdeck, -1);
         printBoard();
         return cards;
     } else {
@@ -89,5 +90,28 @@ int saveDeckToFile(Deck* deck, const char* filename) {
 
     fclose(file);
     return 0;
+}
+
+char* errorMove(int code) {
+    if (code == 0) {
+        return "Error: Not valid foundation or column";
+    } else if (code == -1) {
+        return "Error: No card in column";
+    } else if (code == -2) {
+        return "Error: Not valid move";
+    } else if (code == -3) {
+        return "Error: Not visible";
+    } else if (code == -4) {
+        return "Error: Not valid card";
+    } else if (code == -5) {
+        return "Error: Not valid input";
+    } else if (code == -6) {
+        return "Error: Not visible";
+    } else if (code == -7) {
+        return "Error: Not legal move";
+    } else if (code == -8) {
+        return "Error: No card in foundation";
+    }
+
 }
 

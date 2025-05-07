@@ -36,12 +36,16 @@ int handleMoveCommand(const char* command) {
     if (fromType == 'C' && toType == 'F') {
         int fromColIndex = from[1] - '1';
         int toFIndex = to[1] - '1';
+        if (fromColIndex < 0 || toFIndex < 0 || fromColIndex > 6 || toFIndex > 3) {
+            return 0;
+        }
         Column* fromCol = getColumn(fromColIndex);
         Foundation* toF = getFoundation(toFIndex);
         if (!fromCol || !toF) return 0;
 
         Card* card = fromCol->bottom;
-        if (!card || !card->visible) return 0;
+        if (!card) return -1;
+        if (!card->visible) return -6;
 
         int sr = rankToValue(card->rank);
         Card* topF = getTopCardFoundation(toF);
@@ -55,18 +59,21 @@ int handleMoveCommand(const char* command) {
             return 1;
         }
 
-        return 0;
+        return -7;
     }
 
     if (fromType == 'F' && toType == 'C') {
         int fromFIndex = from[1] - '1';
         int toColIndex = to[1] - '1';
+        if (fromFIndex < 0 || toColIndex < 0 || fromFIndex > 3 || toColIndex > 6) {
+            return 0;
+        }
         Foundation* fromF = getFoundation(fromFIndex);
         Column* toCol = getColumn(toColIndex);
         if (!fromF || !toCol) return 0;
 
         Card* card = getTopCardFoundation(fromF);
-        if (!card) return 0;
+        if (!card) return -8;
 
         Card* dest = toCol->bottom;
         int sr = rankToValue(card->rank);
@@ -77,12 +84,15 @@ int handleMoveCommand(const char* command) {
             attachCardColumn(card, toCol);
             return 1;
         }
-        return 0;
+        return -2;
     }
 
     if (fromType == 'C' && toType == 'C') {
         int fromColIndex = from[1] - '1';
         int toColIndex = to[1] - '1';
+        if (fromColIndex < 0 || toColIndex < 0 || fromColIndex > 6 || toColIndex > 6) {
+            return 0;
+        }
         Column* fromCol = getColumn(fromColIndex);
         Column* toCol = getColumn(toColIndex);
         if (!fromCol || !toCol) return 0;
@@ -94,18 +104,23 @@ int handleMoveCommand(const char* command) {
             char suit = from[4];
             Card* current = fromCol->top;
             while (current) {
-                if (current->rank == rank && current->suit == suit && current->visible) {
-                    movingCard = current;
-                    break;
+                if (current->rank == rank && current->suit == suit) {
+                    if (current->visible > 0) {
+                        movingCard = current;
+                        break;
+                    } else {
+                        return -6;
+                    }
                 }
                 current = current->next;
             }
         } else {
             movingCard = fromCol->bottom;
-            if (!movingCard || !movingCard->visible) return 0;
+            if (!movingCard) return -1;
+            if (!movingCard->visible) return -6;
         }
 
-        if (!movingCard) return 0;
+        if (!movingCard) return -4;
 
         int moveCount = 0;
         Card* temp = movingCard;
@@ -147,5 +162,5 @@ int handleMoveCommand(const char* command) {
         }
     }
 
-    return 0;
+    return -5;
 }
