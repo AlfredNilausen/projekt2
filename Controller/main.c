@@ -42,10 +42,9 @@ int main(void) {
             // QQ: Quit entire program
             if (strcmp(input, "QQ") == 0 && strlen(input) == 2) {
                 freeColumns();
-                freeDeck(getDeck());
+                freeDeck();
                 freeFoundations();
-                printf("\nExiting Yukon. Thanks for playing!\n");
-                break;
+                return 0;
             }
 
             // LD <filename>

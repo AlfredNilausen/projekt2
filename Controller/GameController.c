@@ -20,7 +20,8 @@ int LD(const char* filename) {
     char fullpath[512];
     snprintf(fullpath, sizeof(fullpath), "../Model/%s",  filename); //getting the path to the deck
     int cards = 0; //counter to make sure we have 52 cards
-    Deck tempdeck = createDeck();
+    Deck* tempdeck = getDeck();
+    freeDeck();
     FILE* file = fopen(fullpath, "r");
     if (!file) {
         return -1; //errorcode for not opening the file
@@ -32,7 +33,7 @@ int LD(const char* filename) {
         if ((rank >= '2' && rank <= '9') || rank == 'A' || rank == 'T' || rank == 'J' || rank == 'Q' || rank == 'K') {
             if (suit == 'H' || suit == 'D' || suit == 'C' || suit == 'S') {
                 Card *newcard = createCard(rank, suit,-1);
-                int check = addCardBottom(newcard, &tempdeck);
+                int check = addCardBottom(newcard, tempdeck);
                 if (check == -1) {
                     return -3;
                 }
@@ -47,8 +48,8 @@ int LD(const char* filename) {
     }
     fclose(file);
     if (cards == 52) {
-        setDeck(tempdeck);
-        dealcardstocolumn(&tempdeck, -1);
+        setDeck(*tempdeck);
+        dealcardstocolumn(tempdeck, -1);
         printBoard();
         return cards;
     } else {
