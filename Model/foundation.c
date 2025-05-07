@@ -13,7 +13,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-Foundation* createFoundation(Foundation* foundation) {
+Foundation* createFoundation(void) {
     Foundation* newFoundation = malloc(sizeof(Foundation));
     if (!newFoundation) {
         printf("Memory allocation failed\n");

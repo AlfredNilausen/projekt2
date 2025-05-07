@@ -67,6 +67,8 @@ char* errorcode(int code) {
         return "Error: Deck doesnt contain enough cards";
     }
 
+    return "Error: Unknown error";
+
 }
 int saveDeckToFile(Deck* deck, const char* filename) {
     if (strlen(filename) == 0) {

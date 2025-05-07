@@ -1,15 +1,32 @@
-cmake_minimum_required(VERSION 3.30)
+# Minimum CMake version and project name
+cmake_minimum_required(VERSION 3.15)
 project(projekt2 C)
 
 set(CMAKE_C_STANDARD 11)
 
-add_executable(projekt2 Controller/main.c Model/card.c Model/columns.c Model/deck.c View/BoardView.c
-        Controller/GameController.c
-        Model/Game.c
-        Model/Game.h
-        Model/foundation.c
-        Model/foundation.h
-        Controller/MoveLogic.c
-        Controller/MoveLogic.h)
+# Raylib include and lib paths (adjust if needed)
+include_directories(/opt/homebrew/include)
+link_directories(/opt/homebrew/lib)
 
-add_executable(Test test/test_deck.c Model/card.c Model/columns.c Model/deck.c)
+# Source files
+add_executable(gui_mode
+        Controller/main_gui.c
+        Controller/GameController.c
+        Controller/MoveLogic.c
+        Model/Game.c
+        Model/card.c
+        Model/deck.c
+        Model/foundation.c
+        Model/columns.c
+        View/gui.c
+        View/BoardView.c
+)
+
+# Link Raylib and system libraries
+target_link_libraries(gui_mode
+        raylib
+        m
+        "-framework OpenGL"
+        "-framework Cocoa"
+        "-framework IOKit"
+)
