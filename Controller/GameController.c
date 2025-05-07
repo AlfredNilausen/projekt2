@@ -15,10 +15,10 @@
 
 int LD(const char* filename) {
     if (strlen(filename) == 0) {
-        filename = "filename.txt"; //default unshuffled deck
+        filename = "cards.txt"; //default unshuffled deck
     }
     char fullpath[512];
-    snprintf(fullpath, sizeof(fullpath), "../Model/%s",  filename); //getting the path to the deck
+    snprintf(fullpath, sizeof(fullpath), "../Decks/%s",  filename); //getting the path to the deck
     int cards = 0; //counter to make sure we have 52 cards
     Deck* tempdeck = getDeck();
     freeDeck();
